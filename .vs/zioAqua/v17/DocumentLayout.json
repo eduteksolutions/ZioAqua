@@ -1,0 +1,161 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "G:\\zioAqua\\zioAqua\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F393955D-E4A8-4234-9198-F8FD0B080C15}|zioAqua.csproj|g:\\zioaqua\\zioaqua\\model\\eventordermaster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F393955D-E4A8-4234-9198-F8FD0B080C15}|zioAqua.csproj|solutionrelative:model\\eventordermaster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F393955D-E4A8-4234-9198-F8FD0B080C15}|zioAqua.csproj|g:\\zioaqua\\zioaqua\\model\\storeitemgroup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F393955D-E4A8-4234-9198-F8FD0B080C15}|zioAqua.csproj|solutionrelative:model\\storeitemgroup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F393955D-E4A8-4234-9198-F8FD0B080C15}|zioAqua.csproj|g:\\zioaqua\\zioaqua\\model\\storeitemmaster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F393955D-E4A8-4234-9198-F8FD0B080C15}|zioAqua.csproj|solutionrelative:model\\storeitemmaster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F393955D-E4A8-4234-9198-F8FD0B080C15}|zioAqua.csproj|g:\\zioaqua\\zioaqua\\model\\containertransactiondetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F393955D-E4A8-4234-9198-F8FD0B080C15}|zioAqua.csproj|solutionrelative:model\\containertransactiondetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F393955D-E4A8-4234-9198-F8FD0B080C15}|zioAqua.csproj|g:\\zioaqua\\zioaqua\\model\\containertransaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F393955D-E4A8-4234-9198-F8FD0B080C15}|zioAqua.csproj|solutionrelative:model\\containertransaction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F393955D-E4A8-4234-9198-F8FD0B080C15}|zioAqua.csproj|g:\\zioaqua\\zioaqua\\model\\eventorderdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F393955D-E4A8-4234-9198-F8FD0B080C15}|zioAqua.csproj|solutionrelative:model\\eventorderdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 14,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:131:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:132:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "StoreItemMaster.cs",
+              "DocumentMoniker": "G:\\zioAqua\\zioAqua\\model\\StoreItemMaster.cs",
+              "RelativeDocumentMoniker": "model\\StoreItemMaster.cs",
+              "ToolTip": "G:\\zioAqua\\zioAqua\\model\\StoreItemMaster.cs",
+              "RelativeToolTip": "model\\StoreItemMaster.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-27T15:53:08.184Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ContainerTransactionDetail.cs",
+              "DocumentMoniker": "G:\\zioAqua\\zioAqua\\model\\ContainerTransactionDetail.cs",
+              "RelativeDocumentMoniker": "model\\ContainerTransactionDetail.cs",
+              "ToolTip": "G:\\zioAqua\\zioAqua\\model\\ContainerTransactionDetail.cs",
+              "RelativeToolTip": "model\\ContainerTransactionDetail.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-27T15:53:02.594Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ContainerTransaction.cs",
+              "DocumentMoniker": "G:\\zioAqua\\zioAqua\\model\\ContainerTransaction.cs",
+              "RelativeDocumentMoniker": "model\\ContainerTransaction.cs",
+              "ToolTip": "G:\\zioAqua\\zioAqua\\model\\ContainerTransaction.cs",
+              "RelativeToolTip": "model\\ContainerTransaction.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-27T15:53:01.794Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "EventOrderMaster.cs",
+              "DocumentMoniker": "G:\\zioAqua\\zioAqua\\model\\EventOrderMaster.cs",
+              "RelativeDocumentMoniker": "model\\EventOrderMaster.cs",
+              "ToolTip": "G:\\zioAqua\\zioAqua\\model\\EventOrderMaster.cs",
+              "RelativeToolTip": "model\\EventOrderMaster.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-27T15:52:59.414Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "EventOrderDetail.cs",
+              "DocumentMoniker": "G:\\zioAqua\\zioAqua\\model\\EventOrderDetail.cs",
+              "RelativeDocumentMoniker": "model\\EventOrderDetail.cs",
+              "ToolTip": "G:\\zioAqua\\zioAqua\\model\\EventOrderDetail.cs",
+              "RelativeToolTip": "model\\EventOrderDetail.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-27T15:41:56.78Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "StoreItemGroup.cs",
+              "DocumentMoniker": "G:\\zioAqua\\zioAqua\\model\\StoreItemGroup.cs",
+              "RelativeDocumentMoniker": "model\\StoreItemGroup.cs",
+              "ToolTip": "G:\\zioAqua\\zioAqua\\model\\StoreItemGroup.cs",
+              "RelativeToolTip": "model\\StoreItemGroup.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-27T15:41:48.445Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
