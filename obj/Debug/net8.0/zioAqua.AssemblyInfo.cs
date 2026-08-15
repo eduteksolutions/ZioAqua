@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("zioAqua")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+70d1bd30bd6bf120e8d516ae82ca175b6b1c84d8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+56c52993bb065d5f396323173716a55e22fb87d8")]
 [assembly: System.Reflection.AssemblyProductAttribute("zioAqua")]
 [assembly: System.Reflection.AssemblyTitleAttribute("zioAqua")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
