@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "G:\\zioAqua\\zioAqua\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{F393955D-E4A8-4234-9198-F8FD0B080C15}|zioAqua.csproj|g:\\zioaqua\\zioaqua\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F393955D-E4A8-4234-9198-F8FD0B080C15}|zioAqua.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F393955D-E4A8-4234-9198-F8FD0B080C15}|zioAqua.csproj|g:\\zioaqua\\zioaqua\\model\\storeitemgroup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F393955D-E4A8-4234-9198-F8FD0B080C15}|zioAqua.csproj|solutionrelative:model\\storeitemgroup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -63,12 +67,25 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "G:\\zioAqua\\zioAqua\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "G:\\zioAqua\\zioAqua\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-15T17:06:23.445Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "StoreItemGroup.cs",
               "DocumentMoniker": "G:\\zioAqua\\zioAqua\\model\\StoreItemGroup.cs",
               "RelativeDocumentMoniker": "model\\StoreItemGroup.cs",
               "ToolTip": "G:\\zioAqua\\zioAqua\\model\\StoreItemGroup.cs",
               "RelativeToolTip": "model\\StoreItemGroup.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAJAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAArAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-27T15:41:48.445Z",
               "EditorCaption": ""
