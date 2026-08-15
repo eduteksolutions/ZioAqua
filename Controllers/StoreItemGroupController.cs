@@ -94,7 +94,7 @@ namespace zioAqua.Controllers
             var group = await _db.StoreItemGroup
                 .FirstOrDefaultAsync(x =>
                     x.IGrpCd == id &&
-                    x.UserId == userid);
+                    x.BusinessId == userid);
 
 
             if (group == null)

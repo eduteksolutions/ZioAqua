@@ -63,7 +63,7 @@ namespace zioAqua.Controllers
                 var item = await _db.StoreItemMaster
                     .FirstOrDefaultAsync(x =>
                         x.ICodeNum == id &&
-                        x.UserId == model.UserId);
+                        x.BusinessId == model.BusinessId);
 
 
                 if (item == null)
@@ -109,7 +109,7 @@ namespace zioAqua.Controllers
                 var item = await _db.StoreItemMaster
                     .FirstOrDefaultAsync(x =>
                         x.ICodeNum == id &&
-                        x.UserId == userid);
+                        x.BusinessId == userid);
 
 
                 if (item == null)

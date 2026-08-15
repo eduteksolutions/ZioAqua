@@ -94,7 +94,7 @@ namespace zioAqua.Controllers
                 cmd.Parameters.AddWithValue("@OpenBalType", model.OpenBalType);
                 cmd.Parameters.AddWithValue("@OpenBal", model.OpenBal);
                 cmd.Parameters.AddWithValue("@PCode", model.PCode);
-                cmd.Parameters.AddWithValue("@UserId", model.UserId);
+                cmd.Parameters.AddWithValue("@UserId", model.BusinessId);
                 cmd.Parameters.AddWithValue("@LoginName", model.LoginName);
 
                 cmd.ExecuteNonQuery();
