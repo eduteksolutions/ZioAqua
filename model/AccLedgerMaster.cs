@@ -1,7 +1,10 @@
-﻿namespace zioAqua.model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace zioAqua.model
 {
     public class AccLedgerMaster
     {
+        [Key]
         public int ACode { get; set; }
         public string AccName { get; set; }
         public string Add1 { get; set; }
