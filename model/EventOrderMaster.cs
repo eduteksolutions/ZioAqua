@@ -1,7 +1,10 @@
-﻿namespace zioAqua.model
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace zioAqua.model
 {
     public class EventOrderMaster
     {
+        [Key]
         public int EventOrderId { get; set; }
 
         public string? OrderNo { get; set; }

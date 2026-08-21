@@ -1,7 +1,10 @@
-﻿namespace zioAqua.model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace zioAqua.model
 {
     public class ContainerTransaction
     {
+        [Key]
         public int TransactionId { get; set; }
         public string? TransactionNo { get; set; }
         public DateTime TransactionDate { get; set; }
