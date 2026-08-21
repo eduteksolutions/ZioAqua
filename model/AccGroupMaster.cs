@@ -1,7 +1,10 @@
-﻿namespace zioAqua.model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace zioAqua.model
 {
     public class AccGroupMaster
     {
+        [Key]
         public int Code { get; set; }
 
         public string AccGroupName { get; set; }

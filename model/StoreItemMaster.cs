@@ -1,8 +1,11 @@
-﻿namespace zioAqua.model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace zioAqua.model
 {
    
           public class StoreItemMaster
     {
+        [Key]
         public int ICodeNum { get; set; }
 
         public string ICodeStr { get; set; }

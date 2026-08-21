@@ -1,9 +1,12 @@
-﻿namespace zioAqua.model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace zioAqua.model
 {
   
         public class StoreItemGroup
         {
-            public int IGrpCd { get; set; }
+        [Key]
+        public int IGrpCd { get; set; }
 
             public string IGrpName { get; set; }
 

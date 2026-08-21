@@ -1,7 +1,10 @@
-﻿namespace zioAqua.model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace zioAqua.model
 {
     public class BusinessMaster
     {
+        [Key]
         public int BusinessId { get; set; }
 
         public string BusinessName { get; set; }
