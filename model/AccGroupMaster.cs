@@ -9,7 +9,7 @@ namespace zioAqua.model
 
         public string AccGroupName { get; set; }
 
-        public int MasterType { get; set; }
+        public string MasterType { get; set; }
 
         public int BusinessId { get; set; }
 
