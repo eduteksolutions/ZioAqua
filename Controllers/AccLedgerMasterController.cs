@@ -82,7 +82,7 @@ namespace zioAqua.Controllers
             con.Open();
 
             string sql = @"
-                INSERT INTO AccLedgerMaster
+                INSERT INTO AccLedgerMaster_Copy
                 (
                     AccName,
                     Add1,
@@ -143,7 +143,7 @@ namespace zioAqua.Controllers
             con.Open();
 
             string sql = @"
-                UPDATE AccLedgerMaster
+                UPDATE AccLedgerMaster_Copy
                 SET
                     AccName = @AccName,
                     Add1 = @Add1,
@@ -199,7 +199,7 @@ namespace zioAqua.Controllers
             con.Open();
 
             string sql = @"
-                DELETE FROM AccLedgerMaster
+                DELETE FROM AccLedgerMaster_Copy
                 WHERE
                     ACode = @ACode
                     AND BusinessId = @BusinessId";
