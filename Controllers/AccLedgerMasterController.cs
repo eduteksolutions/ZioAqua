@@ -40,7 +40,7 @@ namespace zioAqua.Controllers
                     l.BusinessId,
                     l.LoginName
                 FROM AccLedgerMaster l
-                INNER JOIN AccMaster g
+                INNER JOIN AccGroupMaster g
                     ON l.PCode = g.Code
                 WHERE l.BusinessId = @BusinessId
                 ORDER BY l.AccName";
