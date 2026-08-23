@@ -1,99 +1,194 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using zioAqua.Data;
 using zioAqua.model;
 
-[ApiController]
-[Route("api/[controller]")]
-public class AccGroupController : ControllerBase
+namespace zioAqua.Controllers
 {
-    private readonly IConfiguration _configuration;
-
-    public AccGroupController(IConfiguration configuration)
+    [ApiController]
+    [Route("api/[controller]")]
+    public class AccGroupController : ControllerBase
     {
-        _configuration = configuration;
-    }
+        private readonly ApplicationDbContext _db;
 
-    [HttpGet]
-    public IActionResult Get()
-    {
-        var dt = new DataTable();
-
-        using SqlConnection con = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
-        con.Open();
-
-        SqlDataAdapter da = new SqlDataAdapter(
-            "SELECT * FROM AccGroupMaster ORDER BY AccGroupName", con);
-
-        da.Fill(dt);
-
-        return Ok(dt);
-    }
-
-    [HttpPost]
-    public IActionResult Post(AccGroupMaster model)
-    {
-        using SqlConnection con = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
-        con.Open();
-
-        SqlCommand cmd = new SqlCommand(
-            @"INSERT INTO AccGroupMaster(AccGroupName,MasterType)
-              VALUES(@AccGroupName,@MasterType)", con);
-
-        cmd.Parameters.AddWithValue("@AccGroupName", model.AccGroupName);
-        cmd.Parameters.AddWithValue("@MasterType", model.MasterType);
-
-        cmd.ExecuteNonQuery();
-
-        return Ok(new
+        public AccGroupController(ApplicationDbContext db)
         {
-            Status = true,
-            Message = "Group Added Successfully"
-        });
-    }
+            _db = db;
+        }
 
-    [HttpPut("{id}")]
-    public IActionResult Put(int id, AccGroupMaster model)
-    {
-        using SqlConnection con = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
-        con.Open();
-
-        SqlCommand cmd = new SqlCommand(
-            @"UPDATE AccGroupMaster
-              SET AccGroupName=@AccGroupName,
-                  MasterType=@MasterType
-              WHERE Code=@Code", con);
-
-        cmd.Parameters.AddWithValue("@Code", id);
-        cmd.Parameters.AddWithValue("@AccGroupName", model.AccGroupName);
-        cmd.Parameters.AddWithValue("@MasterType", model.MasterType);
-
-        cmd.ExecuteNonQuery();
-
-        return Ok(new
+        // GET: api/AccGroup?businessId=1
+        [HttpGet]
+        public IActionResult Get(string masterType)
         {
-            Status = true,
-            Message = "Updated Successfully"
-        });
-    }
+            var dt = new DataTable();
 
-    [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
-    {
-        using SqlConnection con = new SqlConnection(_configuration.GetConnectionString("DefaultConnection"));
-        con.Open();
+            using SqlConnection con = _db.CreateConnection();
+            con.Open();
 
-        SqlCommand cmd = new SqlCommand(
-            "DELETE FROM AccGroupMaster WHERE Code=@Code", con);
+            string sql = @"
+    SELECT *
+    FROM AccGroupMaster
+    WHERE MasterType IN (@MasterType
+        
+    )
+    ORDER BY AccGroupName";
 
-        cmd.Parameters.AddWithValue("@Code", id);
+            using SqlCommand cmd = new SqlCommand(sql, con);
 
-        cmd.ExecuteNonQuery();
+            cmd.Parameters.AddWithValue("@MasterType", masterType);
 
-        return Ok(new
+            using SqlDataAdapter da = new SqlDataAdapter(cmd);
+            da.Fill(dt);
+
+            var result = dt.AsEnumerable()
+                .Select(row => dt.Columns
+                    .Cast<DataColumn>()
+                    .ToDictionary(
+                        column => column.ColumnName,
+                        column => row[column] == DBNull.Value
+                            ? null
+                            : row[column]
+                    ))
+                .ToList();
+
+            return Ok(result);
+        }
+
+        // POST: api/AccGroup
+        [HttpPost]
+        public IActionResult Post([FromBody] AccGroupMaster model)
         {
-            Status = true,
-            Message = "Deleted Successfully"
-        });
+            using SqlConnection con = _db.CreateConnection();
+            con.Open();
+
+            string sql = @"
+                INSERT INTO AccGroupMaster
+                (
+                    AccGroupName,
+                    MasterType,
+                    BusinessId
+                )
+                VALUES
+                (
+                    @AccGroupName,
+                    @MasterType,
+                    @BusinessId
+                )";
+
+            using SqlCommand cmd = new SqlCommand(sql, con);
+
+            cmd.Parameters.AddWithValue(
+                "@AccGroupName",
+                model.AccGroupName ?? "");
+
+            cmd.Parameters.AddWithValue(
+                "@MasterType",
+                model.MasterType);
+
+            cmd.Parameters.AddWithValue(
+                "@BusinessId",
+                model.BusinessId);
+
+            cmd.ExecuteNonQuery();
+
+            return Ok(new
+            {
+                Status = true,
+                Message = "Group Added Successfully"
+            });
+        }
+
+
+        // PUT: api/AccGroup/5
+        [HttpPut("{id}")]
+        public IActionResult Put(
+            int id,
+            [FromBody] AccGroupMaster model)
+        {
+            using SqlConnection con = _db.CreateConnection();
+            con.Open();
+
+            string sql = @"
+                UPDATE AccGroupMaster
+                SET
+                    AccGroupName = @AccGroupName,
+                    MasterType = @MasterType
+                WHERE
+                    Code = @Code
+                    AND BusinessId = @BusinessId";
+
+            using SqlCommand cmd = new SqlCommand(sql, con);
+
+            cmd.Parameters.AddWithValue("@Code", id);
+
+            cmd.Parameters.AddWithValue(
+                "@AccGroupName",
+                model.AccGroupName ?? "");
+
+            cmd.Parameters.AddWithValue(
+                "@MasterType",
+                model.MasterType );
+
+            cmd.Parameters.AddWithValue(
+                "@BusinessId",
+                model.BusinessId);
+
+            int rows = cmd.ExecuteNonQuery();
+
+            if (rows == 0)
+            {
+                return NotFound(new
+                {
+                    Status = false,
+                    Message = "Group not found"
+                });
+            }
+
+            return Ok(new
+            {
+                Status = true,
+                Message = "Updated Successfully"
+            });
+        }
+
+
+        // DELETE: api/AccGroup/5?businessId=1
+        [HttpDelete("{id}")]
+        public IActionResult Delete(
+            int id,
+            int businessId)
+        {
+            using SqlConnection con = _db.CreateConnection();
+            con.Open();
+
+            string sql = @"
+                DELETE FROM AccGroupMaster
+                WHERE
+                    Code = @Code
+                    AND BusinessId = @BusinessId";
+
+            using SqlCommand cmd = new SqlCommand(sql, con);
+
+            cmd.Parameters.AddWithValue("@Code", id);
+            cmd.Parameters.AddWithValue("@BusinessId", businessId);
+
+            int rows = cmd.ExecuteNonQuery();
+
+            if (rows == 0)
+            {
+                return NotFound(new
+                {
+                    Status = false,
+                    Message = "Group not found"
+                });
+            }
+
+            return Ok(new
+            {
+                Status = true,
+                Message = "Deleted Successfully"
+            });
+        }
     }
 }
