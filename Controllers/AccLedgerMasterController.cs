@@ -39,7 +39,7 @@ namespace zioAqua.Controllers
                     l.PCode,
                     l.BusinessId,
                     l.LoginName
-                FROM AccLedgerMaster l
+                FROM AccLedgerMaster_copy l
                 INNER JOIN AccGroupMaster g
                     ON l.PCode = g.Code
                 WHERE l.BusinessId = @BusinessId
