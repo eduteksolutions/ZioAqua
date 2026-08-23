@@ -17,28 +17,43 @@ namespace zioAqua.Controllers
             _db = db;
         }
 
-        // GET: api/AccGroup?businessId=1
         [HttpGet]
-        public IActionResult Get(string masterType)
+        public IActionResult Get([FromQuery] string masterType)
         {
             var dt = new DataTable();
 
             using SqlConnection con = _db.CreateConnection();
             con.Open();
 
-            string sql = @"
-    SELECT *
-    FROM AccGroupMaster
-    WHERE MasterType IN (@MasterType
-        
-    )
-    ORDER BY AccGroupName";
+            string[] values = masterType.Split(',');
 
-            using SqlCommand cmd = new SqlCommand(sql, con);
+            var parameters = new List<string>();
 
-            cmd.Parameters.AddWithValue("@MasterType", masterType);
+            using SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+
+            for (int i = 0; i < values.Length; i++)
+            {
+                string parameterName = "@MasterType" + i;
+
+                parameters.Add(parameterName);
+
+                cmd.Parameters.Add(
+                    parameterName,
+                    System.Data.SqlDbType.Int
+                ).Value = int.Parse(values[i].Trim());
+            }
+
+            string sql = $@"
+        SELECT *
+        FROM AccGroupMaster
+        WHERE MasterType IN ({string.Join(",", parameters)})
+        ORDER BY AccGroupName";
+
+            cmd.CommandText = sql;
 
             using SqlDataAdapter da = new SqlDataAdapter(cmd);
+
             da.Fill(dt);
 
             var result = dt.AsEnumerable()
@@ -53,9 +68,7 @@ namespace zioAqua.Controllers
                 .ToList();
 
             return Ok(result);
-        }
-
-        // POST: api/AccGroup
+        }  // POST: api/AccGroup
         [HttpPost]
         public IActionResult Post([FromBody] AccGroupMaster model)
         {
