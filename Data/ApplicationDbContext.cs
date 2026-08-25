@@ -15,7 +15,7 @@ namespace zioAqua.Data
         {
             _configuration = configuration;
         }
-        public DbSet<ContainerTransaction> ContainerTransaction { get; set; }
+        public DbSet<ContainerTransactionMaster> ContainerTransactionMaster { get; set; }
 
         public DbSet<ContainerTransactionDetail> ContainerTransactionDetail { get; set; }
 
@@ -23,7 +23,7 @@ namespace zioAqua.Data
 
         public DbSet<AccLedgerMaster> AccLedgerMaster { get; set; }
 
-        public DbSet<StoreItemMaster> StoreItemMaster { get; set; }
+        public DbSet<tblStoreItemMast> tblStoreItemMast { get; set; }
 
         public DbSet<StoreItemGroup> StoreItemGroup { get; set; }
         public DbSet<BusinessMaster> BusinessMaster { get; set; }

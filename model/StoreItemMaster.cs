@@ -3,7 +3,7 @@
 namespace zioAqua.model
 {
    
-          public class StoreItemMaster
+          public class tblStoreItemMast
     {
         [Key]
         public int ICodeNum { get; set; }
@@ -30,7 +30,7 @@ namespace zioAqua.model
 
         public int Openingstock { get; set; }
 
-        public int Openingstatus { get; set; }
+        public string Openingstatus { get; set; }
 
         public string? LoginName { get; set; }
 

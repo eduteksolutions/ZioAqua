@@ -7,7 +7,7 @@ namespace zioAqua.model
     {
         [Key]
         public int EventOrderId { get; set; }
-
+        //928975323
         public string? OrderNo { get; set; }
 
         public DateTime OrderDate { get; set; }

@@ -19,7 +19,7 @@ namespace zioAqua.model
 
 
         // Navigation Property
-        public ContainerTransaction? Transaction { get; set; }
+        public ContainerTransactionMaster? Transaction { get; set; }
     }
 
 }

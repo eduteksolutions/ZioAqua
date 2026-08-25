@@ -2,7 +2,7 @@
 
 namespace zioAqua.model
 {
-    public class ContainerTransaction
+    public class ContainerTransactionMaster
     {
         [Key]
         public int TransactionId { get; set; }

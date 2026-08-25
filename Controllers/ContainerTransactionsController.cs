@@ -22,16 +22,16 @@ namespace zioAqua.Controllers
 
             // GET: api/ContainerTransactions
             [HttpGet]
-            public async Task<ActionResult<IEnumerable<ContainerTransaction>>> GetTransactions()
+            public async Task<ActionResult<IEnumerable<ContainerTransactionMaster>>> GetTransactions()
             {
-                return await _context.ContainerTransaction.ToListAsync();
+                return await _context.ContainerTransactionMaster.ToListAsync();
             }
 
             // GET: api/ContainerTransactions/5
             [HttpGet("{id}")]
-            public async Task<ActionResult<ContainerTransaction>> GetTransaction(int id)
+            public async Task<ActionResult<ContainerTransactionMaster>> GetTransaction(int id)
             {
-                var transaction = await _context.ContainerTransaction.FindAsync(id);
+                var transaction = await _context.ContainerTransactionMaster.FindAsync(id);
 
                 if (transaction == null)
                 {
@@ -44,14 +44,14 @@ namespace zioAqua.Controllers
         // POST: api/ContainerTransactions
         // POST: api/ContainerTransactions
         [HttpPost]
-        public async Task<ActionResult<ContainerTransaction>> PostTransaction(ContainerTransaction transaction)
+        public async Task<ActionResult<ContainerTransactionMaster>> PostTransaction(ContainerTransactionMaster transaction)
         {
             try
             {
                 transaction.LUserDt = DateTime.Now;
 
                 // Add Master
-                _context.ContainerTransaction.Add(transaction);
+                _context.ContainerTransactionMaster.Add(transaction);
 
                 // Save master first to get TransactionId
                 await _context.SaveChangesAsync();
@@ -89,7 +89,7 @@ namespace zioAqua.Controllers
 
         // PUT: api/ContainerTransactions/5
         [HttpPut("{id}")]
-            public async Task<IActionResult> PutTransaction(int id, ContainerTransaction transaction)
+            public async Task<IActionResult> PutTransaction(int id, ContainerTransactionMaster transaction)
             {
                 if (id != transaction.TransactionId)
                 {
@@ -124,13 +124,13 @@ namespace zioAqua.Controllers
             [HttpDelete("{id}")]
             public async Task<IActionResult> DeleteTransaction(int id)
             {
-                var transaction = await _context.ContainerTransaction.FindAsync(id);
+                var transaction = await _context.ContainerTransactionMaster.FindAsync(id);
                 if (transaction == null)
                 {
                     return NotFound();
                 }
 
-                _context.ContainerTransaction.Remove(transaction);
+                _context.ContainerTransactionMaster.Remove(transaction);
                 await _context.SaveChangesAsync();
 
                 return NoContent();
@@ -138,7 +138,7 @@ namespace zioAqua.Controllers
 
             private bool TransactionExists(int id)
             {
-                return _context.ContainerTransaction.Any(e => e.TransactionId == id);
+                return _context.ContainerTransactionMaster.Any(e => e.TransactionId == id);
             }
         }
     }

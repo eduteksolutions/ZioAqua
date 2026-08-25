@@ -23,7 +23,7 @@ namespace zioAqua.Controllers
             [HttpGet]
             public async Task<IActionResult> Get(int userid)
             {
-                var data = await _db.StoreItemMaster
+                var data = await _db.tblStoreItemMast
                     .Where(x => x.BusinessId == userid)
                     .OrderBy(x => x.ICodeNum)
                     .ToListAsync();
@@ -35,11 +35,11 @@ namespace zioAqua.Controllers
 
             // POST: api/StoreItemMaster
             [HttpPost]
-            public async Task<IActionResult> Post(StoreItemMaster model)
+            public async Task<IActionResult> Post(tblStoreItemMast model)
             {
                 model.LUserDt = DateTime.Now;
 
-                _db.StoreItemMaster.Add(model);
+                _db.tblStoreItemMast.Add(model);
 
                 await _db.SaveChangesAsync();
 
@@ -58,9 +58,9 @@ namespace zioAqua.Controllers
             [HttpPut("{id}")]
             public async Task<IActionResult> Put(
                 int id,
-                StoreItemMaster model)
+                tblStoreItemMast model)
             {
-                var item = await _db.StoreItemMaster
+                var item = await _db.tblStoreItemMast
                     .FirstOrDefaultAsync(x =>
                         x.ICodeNum == id &&
                         x.BusinessId == model.BusinessId);
@@ -106,7 +106,7 @@ namespace zioAqua.Controllers
                 int id,
                 int userid)
             {
-                var item = await _db.StoreItemMaster
+                var item = await _db.tblStoreItemMast
                     .FirstOrDefaultAsync(x =>
                         x.ICodeNum == id &&
                         x.BusinessId == userid);
@@ -116,10 +116,11 @@ namespace zioAqua.Controllers
                     return NotFound();
 
 
-                _db.StoreItemMaster.Remove(item);
+                _db.tblStoreItemMast.Remove(item);
 
                 await _db.SaveChangesAsync();
 
+            //9289375253
 
                 return Ok(new
                 {
