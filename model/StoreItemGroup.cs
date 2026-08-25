@@ -3,8 +3,8 @@
 namespace zioAqua.model
 {
   
-        public class tblStoreItemGroup
-        {
+        public class tblStoreGroupMaster
+    {
         [Key]
         public int IGrpCd { get; set; }
 

@@ -25,7 +25,7 @@ namespace zioAqua.Data
 
         public DbSet<tblStoreItemMast> tblStoreItemMast { get; set; }
 
-        public DbSet<tblStoreItemGroup> tblStoreItemGroup { get; set; }
+        public DbSet<tblStoreGroupMaster> tblStoreGroupMaster { get; set; }
         public DbSet<BusinessMaster> BusinessMaster { get; set; }
 
         public DbSet<EventOrderMaster> EventOrderMasters { get; set; }

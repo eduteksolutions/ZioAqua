@@ -22,7 +22,7 @@ namespace zioAqua.Controllers
         {
             try
             {
-                var data = await _db.tblStoreItemGroup
+                var data = await _db.tblStoreGroupMaster
                     .Where(x => x.BusinessId == userid)
                     .OrderBy(x => x.IGrpName)
                     .ToListAsync();
@@ -49,7 +49,7 @@ namespace zioAqua.Controllers
 
         // POST: api/StoreItemGroup
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] tblStoreItemGroup model)
+        public async Task<IActionResult> Post([FromBody] tblStoreGroupMaster model)
         {
             try
             {
@@ -75,7 +75,8 @@ namespace zioAqua.Controllers
 
                 model.LUserDt = DateTime.Now;
 
-                _db.tblStoreItemGroup.Add(model);
+                _db.tblStoreGroupMaster.Add(model);
+
 
                 await _db.SaveChangesAsync();
 
@@ -103,7 +104,7 @@ namespace zioAqua.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(
             int id,
-            [FromBody] tblStoreItemGroup model)
+            [FromBody] tblStoreGroupMaster model)
         {
             try
             {
@@ -127,7 +128,7 @@ namespace zioAqua.Controllers
                     });
                 }
 
-                var group = await _db.tblStoreItemGroup
+                var group = await _db.tblStoreGroupMaster
                     .FirstOrDefaultAsync(x =>
                         x.IGrpCd == id &&
                         x.BusinessId == model.BusinessId);
@@ -178,7 +179,7 @@ namespace zioAqua.Controllers
         {
             try
             {
-                var group = await _db.tblStoreItemGroup
+                var group = await _db.tblStoreGroupMaster
                     .FirstOrDefaultAsync(x =>
                         x.IGrpCd == id &&
                         x.BusinessId == userid);
@@ -193,7 +194,7 @@ namespace zioAqua.Controllers
                     });
                 }
 
-                _db.tblStoreItemGroup.Remove(group);
+                _db.tblStoreGroupMaster.Remove(group);
 
                 await _db.SaveChangesAsync();
 
