@@ -6,40 +6,40 @@ using zioAqua.model;
 
 namespace zioAqua.Controllers
 {
-  
 
-    
-        [Route("api/[controller]")]
-        [ApiController]
-        public class ContainerTransactionsController : ControllerBase
+
+
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ContainerTransactionsController : ControllerBase
+    {
+        private readonly ApplicationDbContext _context;
+
+        public ContainerTransactionsController(ApplicationDbContext context)
         {
-            private readonly ApplicationDbContext _context;
+            _context = context;
+        }
 
-            public ContainerTransactionsController(ApplicationDbContext context)
+        // GET: api/ContainerTransactions
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ContainerTransactionMaster>>> GetTransactions()
+        {
+            return await _context.ContainerTransactionMaster.ToListAsync();
+        }
+
+        // GET: api/ContainerTransactions/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ContainerTransactionMaster>> GetTransaction(int id)
+        {
+            var transaction = await _context.ContainerTransactionMaster.FindAsync(id);
+
+            if (transaction == null)
             {
-                _context = context;
+                return NotFound();
             }
 
-            // GET: api/ContainerTransactions
-            [HttpGet]
-            public async Task<ActionResult<IEnumerable<ContainerTransactionMaster>>> GetTransactions()
-            {
-                return await _context.ContainerTransactionMaster.ToListAsync();
-            }
-
-            // GET: api/ContainerTransactions/5
-            [HttpGet("{id}")]
-            public async Task<ActionResult<ContainerTransactionMaster>> GetTransaction(int id)
-            {
-                var transaction = await _context.ContainerTransactionMaster.FindAsync(id);
-
-                if (transaction == null)
-                {
-                    return NotFound();
-                }
-
-                return transaction;
-            }
+            return transaction;
+        }
 
         // POST: api/ContainerTransactions
         // POST: api/ContainerTransactions
@@ -89,57 +89,57 @@ namespace zioAqua.Controllers
 
         // PUT: api/ContainerTransactions/5
         [HttpPut("{id}")]
-            public async Task<IActionResult> PutTransaction(int id, ContainerTransactionMaster transaction)
+        public async Task<IActionResult> PutTransaction(int id, ContainerTransactionMaster transaction)
+        {
+            if (id != transaction.TransactionId)
             {
-                if (id != transaction.TransactionId)
-                {
-                    return BadRequest();
-                }
-
-                _context.Entry(transaction).State = EntityState.Modified;
-
-                // Prevent overriding LUserDt on update if needed, or update it
-                _context.Entry(transaction).Property(x => x.LUserDt).IsModified = false;
-
-                try
-                {
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TransactionExists(id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-
-                return NoContent();
+                return BadRequest();
             }
 
-            // DELETE: api/ContainerTransactions/5
-            [HttpDelete("{id}")]
-            public async Task<IActionResult> DeleteTransaction(int id)
+            _context.Entry(transaction).State = EntityState.Modified;
+
+            // Prevent overriding LUserDt on update if needed, or update it
+            _context.Entry(transaction).Property(x => x.LUserDt).IsModified = false;
+
+            try
             {
-                var transaction = await _context.ContainerTransactionMaster.FindAsync(id);
-                if (transaction == null)
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TransactionExists(id))
                 {
                     return NotFound();
                 }
-
-                _context.ContainerTransactionMaster.Remove(transaction);
-                await _context.SaveChangesAsync();
-
-                return NoContent();
+                else
+                {
+                    throw;
+                }
             }
 
-            private bool TransactionExists(int id)
+            return NoContent();
+        }
+
+        // DELETE: api/ContainerTransactions/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTransaction(int id)
+        {
+            var transaction = await _context.ContainerTransactionMaster.FindAsync(id);
+            if (transaction == null)
             {
-                return _context.ContainerTransactionMaster.Any(e => e.TransactionId == id);
+                return NotFound();
             }
+
+            _context.ContainerTransactionMaster.Remove(transaction);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        private bool TransactionExists(int id)
+        {
+            return _context.ContainerTransactionMaster.Any(e => e.TransactionId == id);
         }
     }
+}
 

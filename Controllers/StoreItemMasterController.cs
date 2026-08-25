@@ -6,22 +6,22 @@ using zioAqua.model;
 
 namespace zioAqua.Controllers
 {
-   
-        [ApiController]
-        [Route("api/[controller]")]
-        public class StoreItemMasterController : ControllerBase
+    [ApiController]
+    [Route("api/[controller]")]
+    public class StoreItemMasterController : ControllerBase
+    {
+        private readonly ApplicationDbContext _db;
+
+        public StoreItemMasterController(ApplicationDbContext db)
         {
-            private readonly ApplicationDbContext _db;
+            _db = db;
+        }
 
-            public StoreItemMasterController(ApplicationDbContext db)
-            {
-                _db = db;
-            }
-
-
-            // GET: api/StoreItemMaster?userid=1
-            [HttpGet]
-            public async Task<IActionResult> Get(int userid)
+        // GET: api/StoreItemMaster?userid=1
+        [HttpGet]
+        public async Task<IActionResult> Get(int userid)
+        {
+            try
             {
                 var data = await _db.tblStoreItemMast
                     .Where(x => x.BusinessId == userid)
@@ -30,46 +30,112 @@ namespace zioAqua.Controllers
 
                 return Ok(data);
             }
-
-
-
-            // POST: api/StoreItemMaster
-            [HttpPost]
-            public async Task<IActionResult> Post(tblStoreItemMast model)
+            catch (Exception ex)
             {
+                return StatusCode(500, new
+                {
+                    Code = "500",
+                    Status = false,
+                    Message = "Error while retrieving Items",
+                    Error = ex.Message
+                });
+            }
+        }
+
+        // POST: api/StoreItemMaster
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] tblStoreItemMast model)
+        {
+            try
+            {
+                if (model == null)
+                {
+                    return BadRequest(new
+                    {
+                        Code = "400",
+                        Status = false,
+                        Message = "Invalid Item data"
+                    });
+                }
+
+                if (string.IsNullOrWhiteSpace(model.IName))
+                {
+                    return BadRequest(new
+                    {
+                        Code = "400",
+                        Status = false,
+                        Message = "Item Name is required"
+                    });
+                }
+
                 model.LUserDt = DateTime.Now;
 
                 _db.tblStoreItemMast.Add(model);
 
                 await _db.SaveChangesAsync();
 
-
                 return Ok(new
                 {
                     Code = "200",
                     Status = true,
-                    Message = "Item Added Successfully"
+                    Message = "Item Added Successfully",
+                    Data = model
                 });
             }
-
-
-
-            // PUT: api/StoreItemMaster/5
-            [HttpPut("{id}")]
-            public async Task<IActionResult> Put(
-                int id,
-                tblStoreItemMast model)
+            catch (Exception ex)
             {
+                return StatusCode(500, new
+                {
+                    Code = "500",
+                    Status = false,
+                    Message = "Error while adding Item",
+                    Error = ex.Message
+                });
+            }
+        }
+
+        // PUT: api/StoreItemMaster/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(
+            int id,
+            [FromBody] tblStoreItemMast model)
+        {
+            try
+            {
+                if (model == null)
+                {
+                    return BadRequest(new
+                    {
+                        Code = "400",
+                        Status = false,
+                        Message = "Invalid Item data"
+                    });
+                }
+
+                if (string.IsNullOrWhiteSpace(model.IName))
+                {
+                    return BadRequest(new
+                    {
+                        Code = "400",
+                        Status = false,
+                        Message = "Item Name is required"
+                    });
+                }
+
                 var item = await _db.tblStoreItemMast
                     .FirstOrDefaultAsync(x =>
                         x.ICodeNum == id &&
                         x.BusinessId == model.BusinessId);
 
-
                 if (item == null)
-                    return NotFound();
-
-
+                {
+                    return NotFound(new
+                    {
+                        Code = "404",
+                        Status = false,
+                        Message = "Item not found"
+                    });
+                }
 
                 item.ICodeStr = model.ICodeStr;
                 item.IName = model.IName;
@@ -86,41 +152,54 @@ namespace zioAqua.Controllers
                 item.LoginName = model.LoginName;
                 item.LUserDt = DateTime.Now;
 
-
                 await _db.SaveChangesAsync();
-
 
                 return Ok(new
                 {
                     Code = "200",
                     Status = true,
-                    Message = "Item Updated Successfully"
+                    Message = "Item Updated Successfully",
+                    Data = item
                 });
             }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    Code = "500",
+                    Status = false,
+                    Message = "Error while updating Item",
+                    Error = ex.Message
+                });
+            }
+        }
 
-
-
-            // DELETE: api/StoreItemMaster/5
-            [HttpDelete("{id}")]
-            public async Task<IActionResult> Delete(
-                int id,
-                int userid)
+        // DELETE: api/StoreItemMaster/5?userid=1
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(
+            int id,
+            int userid)
+        {
+            try
             {
                 var item = await _db.tblStoreItemMast
                     .FirstOrDefaultAsync(x =>
                         x.ICodeNum == id &&
                         x.BusinessId == userid);
 
-
                 if (item == null)
-                    return NotFound();
-
+                {
+                    return NotFound(new
+                    {
+                        Code = "404",
+                        Status = false,
+                        Message = "Item not found"
+                    });
+                }
 
                 _db.tblStoreItemMast.Remove(item);
 
                 await _db.SaveChangesAsync();
-
-            //9289375253
 
                 return Ok(new
                 {
@@ -129,6 +208,16 @@ namespace zioAqua.Controllers
                     Message = "Item Deleted Successfully"
                 });
             }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    Code = "500",
+                    Status = false,
+                    Message = "Error while deleting Item",
+                    Error = ex.Message
+                });
+            }
         }
     }
-
+}
