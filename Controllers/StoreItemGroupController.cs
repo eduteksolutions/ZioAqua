@@ -16,7 +16,9 @@ namespace zioAqua.Controllers
             _db = db;
         }
 
+        // =========================================================
         // GET: api/StoreItemGroup?userid=1
+        // =========================================================
         [HttpGet]
         public async Task<IActionResult> Get(int userid)
         {
@@ -29,27 +31,75 @@ namespace zioAqua.Controllers
 
                 return Ok(new
                 {
-                    Code = 200,
-                    Status = true,
-                    Message = "Store Groups Retrieved Successfully",
-                    Data = data
+                    code = 200,
+                    status = true,
+                    message = "Store Groups Retrieved Successfully",
+                    data = data
                 });
             }
             catch (Exception ex)
             {
                 return StatusCode(500, new
                 {
-                    Code = 500,
-                    Status = false,
-                    Message = "Error while retrieving Store Groups",
-                    Error = ex.Message
+                    code = 500,
+                    status = false,
+                    message = "Error while retrieving Store Groups",
+                    error = ex.Message
                 });
             }
         }
 
+        // =========================================================
+        // GET BY ID
+        // GET: api/StoreItemGroup/1?userid=1
+        // =========================================================
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id, int userid)
+        {
+            try
+            {
+                var data = await _db.tblStoreItemGrpMast
+                    .FirstOrDefaultAsync(x =>
+                        x.IGrpCd == id &&
+                        x.BusinessId == userid);
+
+                if (data == null)
+                {
+                    return NotFound(new
+                    {
+                        code = 404,
+                        status = false,
+                        message = "Store Group not found"
+                    });
+                }
+
+                return Ok(new
+                {
+                    code = 200,
+                    status = true,
+                    message = "Store Group Retrieved Successfully",
+                    data = data
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    code = 500,
+                    status = false,
+                    message = "Error while retrieving Store Group",
+                    error = ex.Message
+                });
+            }
+        }
+
+        // =========================================================
+        // POST
         // POST: api/StoreItemGroup
+        // =========================================================
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] tblStoreItemGrpMast model)
+        public async Task<IActionResult> Post(
+            [FromBody] tblStoreItemGrpMast model)
         {
             try
             {
@@ -57,9 +107,9 @@ namespace zioAqua.Controllers
                 {
                     return BadRequest(new
                     {
-                        Code = 400,
-                        Status = false,
-                        Message = "Invalid Store Group data"
+                        code = 400,
+                        status = false,
+                        message = "Invalid Store Group data"
                     });
                 }
 
@@ -67,40 +117,71 @@ namespace zioAqua.Controllers
                 {
                     return BadRequest(new
                     {
-                        Code = 400,
-                        Status = false,
-                        Message = "Store Group Name is required"
+                        code = 400,
+                        status = false,
+                        message = "Store Group Name is required"
                     });
                 }
 
+                if (model.BusinessId <= 0)
+                {
+                    return BadRequest(new
+                    {
+                        code = 400,
+                        status = false,
+                        message = "BusinessId is required"
+                    });
+                }
+
+                // Check duplicate group name
+                bool exists = await _db.tblStoreItemGrpMast
+                    .AnyAsync(x =>
+                        x.IGrpName == model.IGrpName &&
+                        x.BusinessId == model.BusinessId);
+
+                if (exists)
+                {
+                    return BadRequest(new
+                    {
+                        code = 400,
+                        status = false,
+                        message = "Store Group already exists"
+                    });
+                }
+
+                // Set current date/time
                 model.LUserDt = DateTime.Now;
 
+                // Add record
                 _db.tblStoreItemGrpMast.Add(model);
 
-
+                // Save
                 await _db.SaveChangesAsync();
 
                 return Ok(new
                 {
-                    Code = 200,
-                    Status = true,
-                    Message = "Store Group Added Successfully",
-                    Data = model
+                    code = 200,
+                    status = true,
+                    message = "Store Group Added Successfully",
+                    data = model
                 });
             }
             catch (Exception ex)
             {
                 return StatusCode(500, new
                 {
-                    Code = 500,
-                    Status = false,
-                    Message = "Error while adding Store Group",
-                    Error = ex.Message
+                    code = 500,
+                    status = false,
+                    message = "Error while adding Store Group",
+                    error = ex.Message
                 });
             }
         }
 
+        // =========================================================
+        // PUT
         // PUT: api/StoreItemGroup/1
+        // =========================================================
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(
             int id,
@@ -112,9 +193,9 @@ namespace zioAqua.Controllers
                 {
                     return BadRequest(new
                     {
-                        Code = 400,
-                        Status = false,
-                        Message = "Invalid Store Group data"
+                        code = 400,
+                        status = false,
+                        message = "Invalid Store Group data"
                     });
                 }
 
@@ -122,9 +203,19 @@ namespace zioAqua.Controllers
                 {
                     return BadRequest(new
                     {
-                        Code = 400,
-                        Status = false,
-                        Message = "Store Group Name is required"
+                        code = 400,
+                        status = false,
+                        message = "Store Group Name is required"
+                    });
+                }
+
+                if (model.BusinessId <= 0)
+                {
+                    return BadRequest(new
+                    {
+                        code = 400,
+                        status = false,
+                        message = "BusinessId is required"
                     });
                 }
 
@@ -137,12 +228,30 @@ namespace zioAqua.Controllers
                 {
                     return NotFound(new
                     {
-                        Code = 404,
-                        Status = false,
-                        Message = "Store Group not found"
+                        code = 404,
+                        status = false,
+                        message = "Store Group not found"
                     });
                 }
 
+                // Check duplicate name
+                bool duplicate = await _db.tblStoreItemGrpMast
+                    .AnyAsync(x =>
+                        x.IGrpName == model.IGrpName &&
+                        x.BusinessId == model.BusinessId &&
+                        x.IGrpCd != id);
+
+                if (duplicate)
+                {
+                    return BadRequest(new
+                    {
+                        code = 400,
+                        status = false,
+                        message = "Another Store Group with the same name already exists"
+                    });
+                }
+
+                // Update fields
                 group.IGrpName = model.IGrpName;
                 group.IRackCd = model.IRackCd;
                 group.IGrpDescr = model.IGrpDescr;
@@ -153,25 +262,28 @@ namespace zioAqua.Controllers
 
                 return Ok(new
                 {
-                    Code = 200,
-                    Status = true,
-                    Message = "Store Group Updated Successfully",
-                    Data = group
+                    code = 200,
+                    status = true,
+                    message = "Store Group Updated Successfully",
+                    data = group
                 });
             }
             catch (Exception ex)
             {
                 return StatusCode(500, new
                 {
-                    Code = 500,
-                    Status = false,
-                    Message = "Error while updating Store Group",
-                    Error = ex.Message
+                    code = 500,
+                    status = false,
+                    message = "Error while updating Store Group",
+                    error = ex.Message
                 });
             }
         }
 
+        // =========================================================
+        // DELETE
         // DELETE: api/StoreItemGroup/1?userid=1
+        // =========================================================
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(
             int id,
@@ -188,9 +300,9 @@ namespace zioAqua.Controllers
                 {
                     return NotFound(new
                     {
-                        Code = 404,
-                        Status = false,
-                        Message = "Store Group not found"
+                        code = 404,
+                        status = false,
+                        message = "Store Group not found"
                     });
                 }
 
@@ -200,19 +312,19 @@ namespace zioAqua.Controllers
 
                 return Ok(new
                 {
-                    Code = 200,
-                    Status = true,
-                    Message = "Store Group Deleted Successfully"
+                    code = 200,
+                    status = true,
+                    message = "Store Group Deleted Successfully"
                 });
             }
             catch (Exception ex)
             {
                 return StatusCode(500, new
                 {
-                    Code = 500,
-                    Status = false,
-                    Message = "Error while deleting Store Group",
-                    Error = ex.Message
+                    code = 500,
+                    status = false,
+                    message = "Error while deleting Store Group",
+                    error = ex.Message
                 });
             }
         }
