@@ -28,7 +28,23 @@ namespace zioAqua.Controllers
                     .OrderBy(x => x.ICodeNum)
                     .ToListAsync();
 
-                return Ok(data);
+                if (data == null || data.Count == 0)
+                {
+                    return NotFound(new
+                    {
+                        Code = "404",
+                        Status = false,
+                        Message = "Record Not Found"
+                    });
+                }
+
+                return Ok(new
+                {
+                    Code = "200",
+                    Status = true,
+                    Message = "Records Found",
+                    Data = data
+                });
             }
             catch (Exception ex)
             {
