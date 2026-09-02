@@ -16,23 +16,51 @@ namespace zioAqua.Controllers
             _db = db;
         }
 
-        // =========================================================
-        // GET: api/StoreItemGroup?userid=1
-        // =========================================================
         [HttpGet]
         public async Task<IActionResult> Get(int userid)
         {
             try
             {
+                // Example using an Inner Join with another table (e.g., tblStoreRackMaster or Users)
+                // Replace 'tblStoreRackMaster' and join conditions with your actual second table if needed
                 var data = await _db.tblStoreItemGrpMast
                     .Where(x => x.BusinessId == userid)
+                    .Join(
+                        _db.tblStoreItemMast, // The table you want to inner join with
+                        group => group.IGrpCd,     // Outer key
+                        item => item.IGrpCd,       // Inner key
+                        (group, item) => new       // Projection/Select fields
+                        {
+                            group.IGrpCd,
+                            group.IGrpName,
+                            group.IGrpDescr,
+                            group.BusinessId,
+                            group.IRackCd,
+                            group.LoginName,
+                          
+                       
+                           
+                            // Add extra fields from the joined table if required
+                            ItemCodeNum = item.ICodeNum,
+                            ItemName = item.IName
+                        }
+                    )
                     .OrderBy(x => x.IGrpName)
                     .ToListAsync();
 
+                if (data == null || data.Count == 0)
+                {
+                    return NotFound(new
+                    {
+                        code = "404",
+                        status = false,
+                        message = "Record Not Found"
+                    });
+                }
+
                 return Ok(new
                 {
-
-                    code = 200,
+                    code = "200",
                     status = true,
                     message = "Store Groups Retrieved Successfully",
                     data = data
@@ -42,7 +70,7 @@ namespace zioAqua.Controllers
             {
                 return StatusCode(500, new
                 {
-                    code = 500,
+                    code = "500",
                     status = false,
                     message = "Error while retrieving Store Groups",
                     error = ex.Message
