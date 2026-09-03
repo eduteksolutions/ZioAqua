@@ -37,9 +37,6 @@ namespace zioAqua.Controllers
                             group.BusinessId,
                             group.IRackCd,
                             group.LoginName,
-                          
-                       
-                           
                             // Add extra fields from the joined table if required
                             ItemCodeNum = item.ICodeNum,
                             ItemName = item.IName

@@ -6,6 +6,7 @@ using zioAqua.model;
 
 namespace zioAqua.Controllers
 {
+
     [ApiController]
     [Route("api/[controller]")]
     public class StoreItemMasterController : ControllerBase
@@ -84,6 +85,14 @@ namespace zioAqua.Controllers
                     });
                 }
 
+                // Get next Item Code for this Business
+                int maxCode = await _db.tblStoreItemMast
+                    .Where(x => x.BusinessId == model.BusinessId)
+                    .Select(x => (int?)x.ICodeNum)
+                    .MaxAsync() ?? 0;
+
+                model.ICodeNum = maxCode + 1;
+
                 model.LUserDt = DateTime.Now;
 
                 _db.tblStoreItemMast.Add(model);
@@ -109,7 +118,6 @@ namespace zioAqua.Controllers
                 });
             }
         }
-
         // PUT: api/StoreItemMaster/5
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(
@@ -191,6 +199,7 @@ namespace zioAqua.Controllers
         }
 
         // DELETE: api/StoreItemMaster/5?userid=1
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(
             int id,
