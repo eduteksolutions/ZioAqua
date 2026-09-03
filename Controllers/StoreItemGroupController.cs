@@ -21,27 +21,8 @@ namespace zioAqua.Controllers
         {
             try
             {
-                // Example using an Inner Join with another table (e.g., tblStoreRackMaster or Users)
-                // Replace 'tblStoreRackMaster' and join conditions with your actual second table if needed
                 var data = await _db.tblStoreItemGrpMast
                     .Where(x => x.BusinessId == userid)
-                    .Join(
-                        _db.tblStoreItemMast, // The table you want to inner join with
-                        group => group.IGrpCd,     // Outer key
-                        item => item.IGrpCd,       // Inner key
-                        (group, item) => new       // Projection/Select fields
-                        {
-                            group.IGrpCd,
-                            group.IGrpName,
-                            group.IGrpDescr,
-                            group.BusinessId,
-                            group.IRackCd,
-                            group.LoginName,
-                            // Add extra fields from the joined table if required
-                            ItemCodeNum = item.ICodeNum,
-                            ItemName = item.IName
-                        }
-                    )
                     .OrderBy(x => x.IGrpName)
                     .ToListAsync();
 

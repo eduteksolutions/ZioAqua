@@ -18,4 +18,6 @@ namespace zioAqua.model
         public List<ContainerTransactionDetail> Details { get; set; }
             = new();
     }
+
+
 }
