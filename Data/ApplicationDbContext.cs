@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using zioAqua.model;
+using zioAqua.model.zioAqua.model;
 
 namespace zioAqua.Data
 {
@@ -28,8 +29,12 @@ namespace zioAqua.Data
         public DbSet<tblStoreItemGrpMast> tblStoreItemGrpMast { get; set; }
         public DbSet<BusinessMaster> BusinessMaster { get; set; }
 
+        public DbSet<UserMaster> UserMaster { get; set; }
         public DbSet<EventOrderMaster> EventOrderMasters { get; set; }
         public DbSet<EventOrderDetail> EventOrderDetails { get; set; }
+        public DbSet<AccTransactionMaster> AccTransactionMaster { get; set; }
+
+        public DbSet<AccTransactionDetail> AccTransactionDetail { get; set; }
         public SqlConnection CreateConnection()
         {
             return new SqlConnection(
