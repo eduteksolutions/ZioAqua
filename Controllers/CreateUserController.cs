@@ -95,9 +95,11 @@ namespace zioAqua.Controllers
 
                 var business = await _context.BusinessMaster
                     .FirstOrDefaultAsync(x =>
-                        x.BusinessID == request.BusinessID);
+                        x.BusinessId
+                        == request.BusinessID);
 
-                if (business == null)
+                if (business == null
+                    )
                 {
                     return NotFound(new ApiResponse
                     {
